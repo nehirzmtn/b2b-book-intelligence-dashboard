@@ -4,6 +4,7 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from forecasting import calculate_sales_forecast, predict_future
 
 from data_processing import clean_data
 from analysis import calculate_abc_analysis, calculate_rfm_analysis
@@ -358,3 +359,182 @@ st.plotly_chart(
     fig_segment_revenue,
     use_container_width=True
 )
+
+
+st.divider()
+
+
+st.header("Sales Forecasting")
+
+st.write(
+    "Compare four forecasting methods using historical "
+    "monthly sales data. Models are evaluated using "
+    "a three-month holdout period with MAE and RMSE."
+)
+
+try:
+    historical, default_forecast, evaluation, best_model = (
+        calculate_sales_forecast(df)
+    )
+
+    model_options = evaluation["Model"].tolist()
+
+    st.subheader("Forecast Model Selection")
+
+    selected_model = st.selectbox(
+        "Select Forecasting Model",
+        options=model_options,
+        index=model_options.index(best_model)
+    )
+
+    historical_values = historical["Revenue"].to_numpy()
+
+    selected_predictions = predict_future(
+        historical_values,
+        selected_model,
+        periods=3
+    )
+
+    forecast = default_forecast.copy()
+    forecast["Forecast_Revenue"] = selected_predictions
+
+    selected_metrics = evaluation.loc[
+        evaluation["Model"] == selected_model
+    ].iloc[0]
+
+    best_metrics = evaluation.loc[
+        evaluation["Model"] == best_model
+    ].iloc[0]
+
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric(
+        "Best Performing Model",
+        best_model
+    )
+
+    col2.metric(
+        "Best Validation MAE",
+        f"{best_metrics['MAE']:,.2f}"
+    )
+
+    col3.metric(
+        "Selected Model MAE",
+        f"{selected_metrics['MAE']:,.2f}"
+    )
+
+    st.subheader("Historical Sales and Forecast")
+
+    fig_forecast = px.line(
+        historical,
+        x="Month",
+        y="Revenue",
+        markers=True,
+        title=f"Sales Forecast - {selected_model}"
+    )
+
+    fig_forecast.update_traces(
+        name="Historical Sales",
+        showlegend=True
+    )
+
+    forecast_months = pd.concat(
+        [
+            historical["Month"].tail(1),
+            forecast["Month"]
+        ],
+        ignore_index=True
+    )
+
+    forecast_values = pd.concat(
+        [
+            historical["Revenue"].tail(1),
+            forecast["Forecast_Revenue"]
+        ],
+        ignore_index=True
+    )
+
+    fig_forecast.add_scatter(
+        x=forecast_months,
+        y=forecast_values,
+        mode="lines+markers",
+        name="Forecast",
+        line=dict(
+            color="#EF553B",
+            dash="dash",
+            width=3
+        )
+    )
+
+    fig_forecast.add_vline(
+        x=historical["Month"].iloc[-1].timestamp() * 1000,
+        line_dash="dot",
+        line_color="gray"
+    )
+
+    fig_forecast.update_layout(
+        xaxis_title="Month",
+        yaxis_title="Net Sales Revenue",
+        template="plotly_white",
+        hovermode="x unified",
+        legend_title="Series"
+    )
+
+    st.plotly_chart(
+        fig_forecast,
+        use_container_width=True
+    )
+
+    st.subheader("Forecast Model Evaluation")
+
+    st.dataframe(
+        evaluation.round(2),
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.subheader("Forecasted Monthly Revenue")
+
+    st.dataframe(
+        forecast.round(2),
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.subheader("Forecasting Insights")
+
+    if selected_model == best_model:
+        st.success(
+            f"{selected_model} achieved the lowest MAE "
+            "during the validation period."
+        )
+    else:
+        st.info(
+            f"The selected model is {selected_model}. "
+            f"However, {best_model} achieved the lowest "
+            "validation MAE."
+        )
+
+    forecast_change = (
+        (forecast["Forecast_Revenue"].iloc[0]
+         - historical["Revenue"].iloc[-1])
+        / historical["Revenue"].iloc[-1] * 100
+        if historical["Revenue"].iloc[-1] > 0
+        else 0
+    )
+
+    st.metric(
+        "Forecasted Next-Month Change",
+        f"{forecast_change:+.2f}%"
+    )
+
+    st.caption(
+        "Models were evaluated on October-December 2020. "
+        "Forecasts cover January-March 2021. "
+        "The limited historical period makes these "
+        "forecasts exploratory rather than reliable "
+        "long-term predictions."
+    )
+
+except ValueError as exc:
+    st.warning(str(exc))
