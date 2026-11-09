@@ -16,7 +16,301 @@ st.set_page_config(
     page_icon="📚",
     layout="wide"
 )
+st.markdown(
+    """
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
+    html, body, [class*="css"], [data-testid="stApp"] {
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    [data-testid="stAppViewContainer"] {
+        background: #F6F8FC;
+    }
+
+    .block-container {
+        max-width: 1350px;
+        padding-top: 2.2rem;
+        padding-bottom: 3rem;
+    }
+
+    h1 {
+        color: #142D45;
+        font-size: 2.3rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    h2 {
+        color: #142D45;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    h3 {
+        color: #263F56;
+        font-weight: 650;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+
+    [data-testid="stMetric"] {
+        background: #FFFFFF;
+        border: 1px solid #E1E8F0;
+        border-radius: 16px;
+        padding: 20px 22px;
+        box-shadow: 0 3px 12px rgba(20, 45, 69, 0.035);
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: #748395;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #142D45;
+        font-size: 1.85rem;
+        font-weight: 800;
+        letter-spacing: -0.6px;
+    }
+
+    section[data-testid="stSidebar"] {
+    background: #EDF2F8;
+    border-right: 1px solid #D9E3ED;
+}
+
+section[data-testid="stSidebar"] > div {
+    background: #EDF2F8;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] {
+    gap: 6px;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: background 0.2s ease;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background: #DEE8F2;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) {
+    background: #D7E6F0;
+    border: 1px solid #C2D7E5;
+    font-weight: 650;
+}
+
+    section[data-testid="stSidebar"] h1 {
+        color: #142D45;
+        font-size: 1.5rem;
+    }
+
+    [data-testid="stSidebar"] [role="radiogroup"] label {
+        border-radius: 9px;
+        padding: 7px 9px;
+    }
+
+    [data-testid="stSidebar"] [role="radiogroup"] label:hover {
+        background: #F0F5F9;
+    }
+
+    [data-testid="stPlotlyChart"] {
+        background: #FFFFFF;
+        border: 1px solid #E1E8F0;
+        border-radius: 16px;
+        padding: 12px;
+    }
+
+    [data-testid="stDataFrame"] {
+        border: 1px solid #E1E8F0;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    div[data-testid="stVerticalBlockBorderWrapper"] {
+        border-radius: 16px;
+    }
+
+    hr {
+        border-color: #E1E8F0;
+    }
+    [data-testid="stSidebar"] .stButton > button {
+    width: 100%;
+    min-height: 38px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 0.86rem;
+    font-weight: 500;
+    box-shadow: none;
+}
+[data-testid="stSidebar"] .stButton > button[kind="secondary"] {
+    background: transparent;
+    color: #41566D;
+    border: 1px solid transparent;
+}
+
+[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
+    background: #DFE9F2;
+    color: #17324D;
+    border-color: transparent;
+}
+
+[data-testid="stSidebar"] .stButton > button[kind="primary"] {
+    background: #17324D;
+    color: #FFFFFF;
+    border: 1px solid #17324D;
+    font-weight: 650;
+}
+
+[data-testid="stSidebar"] .stButton > button[kind="primary"]:hover {
+    background: #244B6A;
+    border-color: #244B6A;
+}
+
+[data-testid="stSidebar"] .stButton {
+    margin-bottom: 2px;
+}
+[data-testid="stSidebar"] [data-testid="stExpander"] {
+    border: none;
+    background: transparent;
+}
+
+[data-testid="stSidebar"] .stMultiSelect > div {
+    border-radius: 9px;
+}
+
+[data-testid="stSidebar"] .stDateInput > div {
+    border-radius: 9px;
+}
+
+[data-testid="stSidebar"] .stButton > button {
+    min-height: 42px;
+    border-radius: 9px;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    border-color: #17324D;
+}
+/* Sidebar filter styling */
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p {
+    color: #41566D;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.65rem;
+}
+
+[data-testid="stSidebar"] [data-baseweb="select"] > div {
+    background-color: #FFFFFF;
+    border: 1px solid #D9E2EC;
+    border-radius: 10px;
+    min-height: 42px;
+}
+
+[data-testid="stSidebar"] [data-testid="stDateInput"] input {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    color: #17324D;
+}
+
+[data-testid="stSidebar"] .stButton > button[kind="secondary"] {
+    background-color: #FFFFFF;
+    color: #17324D;
+    border: 1px solid #C9D7E5;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
+    background-color: #E0EAF3;
+    border-color: #17324D;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0 18px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #D4E0EA;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: #17324D;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.brand-title {
+    color: #17324D;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.brand-subtitle {
+    color: #718396;
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+/* Match Streamlit header with dashboard background */
+[data-testid="stHeader"] {
+    background-color: #F6F8FC !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
+
+[data-testid="stToolbar"] {
+    background-color: transparent !important;
+}
+
+[data-testid="stDecoration"] {
+    display: none !important;
+}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+import plotly.io as pio
+
+pio.templates["bookflow"] = pio.templates["plotly_white"]
+pio.templates["bookflow"].layout.font.family = "DM Sans, sans-serif"
+pio.templates["bookflow"].layout.font.color = "#263F56"
+pio.templates["bookflow"].layout.colorway = [
+    "#0D9488",
+    "#2563EB",
+    "#8B5CF6",
+    "#F59E0B",
+    "#EF6461",
+    "#64748B"
+]
+pio.templates["bookflow"].layout.paper_bgcolor = "#FFFFFF"
+pio.templates["bookflow"].layout.plot_bgcolor = "#FFFFFF"
+
+pio.templates.default = "bookflow"
 DATA_FILE = (
     Path(__file__).resolve().parent
     / "data"
@@ -78,7 +372,7 @@ def display_overview(df):
         title="Monthly Net Sales Revenue"
     )
     fig.update_layout(
-        template="plotly_white",
+        template="bookflow",
         xaxis_title="Month",
         yaxis_title="Net Sales Revenue",
         hovermode="x unified"
@@ -102,7 +396,7 @@ def display_overview(df):
         title="Top Categories by Revenue"
     )
     fig.update_layout(
-        template="plotly_white",
+        template="bookflow",
         yaxis={"categoryorder": "total ascending"}
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -155,7 +449,7 @@ def display_marketing(df):
     )
     fig.update_layout(
         showlegend=False,
-        template="plotly_white"
+        template="bookflow"
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -175,7 +469,7 @@ def display_marketing(df):
     )
     fig.update_layout(
         showlegend=False,
-        template="plotly_white"
+        template="bookflow"
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -238,7 +532,7 @@ def display_supply_chain(df):
         textposition="outside"
     )
     fig.update_layout(
-        template="plotly_white",
+        template="bookflow",
         yaxis_range=[0, 100]
     )
     st.plotly_chart(fig, use_container_width=True)
@@ -252,14 +546,34 @@ def display_supply_chain(df):
         text="Product_Count",
         title="Number of Products by ABC Class"
     )
-    fig.update_layout(template="plotly_white")
+    fig.update_traces(
+        texttemplate="%{y:,.0f}",
+        textposition="outside"
+    )
+
+    fig.update_layout(template="bookflow")
     st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("ABC Classification Summary")
     st.dataframe(
-        summary.round(2),
+        summary,
         use_container_width=True,
-        hide_index=True
+        hide_index=True,
+        column_config={
+            "ABC_Class": st.column_config.TextColumn("ABC Class"),
+            "Product_Count": st.column_config.NumberColumn(
+                "Product Count", format="%d"
+            ),
+            "Total_Revenue": st.column_config.NumberColumn(
+                "Total Revenue", format="%.2f"
+            ),
+            "Revenue_Share": st.column_config.NumberColumn(
+                "Revenue Share (%)", format="%.2f"
+            ),
+            "Product_Share": st.column_config.NumberColumn(
+                "Product Share (%)", format="%.2f"
+            ),
+        }
     )
 
     st.caption(
@@ -351,7 +665,7 @@ def display_forecasting(df):
         )
 
         fig.update_layout(
-            template="plotly_white",
+            template="bookflow",
             xaxis_title="Month",
             yaxis_title="Net Sales Revenue",
             hovermode="x unified"
@@ -463,7 +777,119 @@ def display_data_quality(df):
             hide_index=True
         )
 
+@st.cache_data(show_spinner="Preparing data cleaning report...")
+def load_cleaning_report(path):
+    original = pd.read_excel(path, engine="openpyxl")
+    cleaned = clean_data(original)
 
+    invoice_dates = pd.to_datetime(
+        original["InvoiceDate"], errors="coerce"
+    )
+    quantities = pd.to_numeric(
+        original["Quantity"], errors="coerce"
+    )
+    net_prices = pd.to_numeric(
+        original["NetPrice"], errors="coerce"
+    )
+    unit_prices = pd.to_numeric(
+        original["UnitPrice"], errors="coerce"
+    )
+
+    valid_required = (
+        invoice_dates.notna()
+        & quantities.notna()
+        & net_prices.notna()
+        & unit_prices.notna()
+    )
+
+    missing_required = int((~valid_required).sum())
+
+    nonpositive_sales = int((
+        valid_required
+        & ((quantities <= 0) | (net_prices <= 0))
+    ).sum())
+
+    missing_values = original.isna().sum().reset_index()
+    missing_values.columns = ["Column", "Missing Values"]
+
+    return {
+        "original": len(original),
+        "cleaned": len(cleaned),
+        "missing_required": missing_required,
+        "nonpositive_sales": nonpositive_sales,
+        "missing_values": missing_values
+    }
+
+    
+def display_cleaning_report(path):
+    st.header("Data Quality & Cleaning Report")
+    st.write(
+        "Data preprocessing results and transaction quality overview."
+    )
+
+    report = load_cleaning_report(path)
+
+    original = report["original"]
+    cleaned = report["cleaned"]
+    removed = original - cleaned
+    retention = (cleaned / original * 100) if original else 0
+
+    c1, c2, c3, c4 = st.columns(4)
+
+    c1.metric("Original Records", f"{original:,}")
+    c2.metric("Cleaned Records", f"{cleaned:,}")
+    c3.metric("Removed Records", f"{removed:,}")
+    c4.metric("Retention Rate", f"{retention:.4f}%")
+
+    st.subheader("Cleaning Breakdown")
+
+    breakdown = pd.DataFrame({
+        "Cleaning Step": [
+            "Missing or invalid required values",
+            "Non-positive quantity or net price"
+        ],
+        "Removed Rows": [
+            report["missing_required"],
+            report["nonpositive_sales"]
+        ]
+    })
+
+    st.dataframe(
+        breakdown,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.subheader("Missing Values in Original Data")
+
+    st.dataframe(
+        report["missing_values"],
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.caption(
+        "Missing-value counts reflect original null values. "
+        "Text placeholders such as NULL may require separate checks."
+    )
+
+    st.subheader("Applied Cleaning Steps")
+
+    st.markdown(
+        """
+        - Converted invoice dates to datetime.
+        - Converted quantity and price columns to numeric.
+        - Standardized placeholder city values as missing.
+        - Removed rows with invalid essential values.
+        - Excluded non-positive sales transactions.
+        - Calculated revenue as Quantity × NetPrice.
+        """
+    )
+
+    st.caption(
+        "The report summarizes the full dataset before dashboard filters. "
+        "Duplicate transactions are not automatically removed."
+    )
 def main():
     if not DATA_FILE.exists():
         st.error("Dataset not found in the data directory.")
@@ -475,40 +901,148 @@ def main():
         st.error(f"Unable to load data: {exc}")
         st.stop()
 
-    st.sidebar.title("📚 BookFlow")
-
-    page = st.sidebar.radio(
-        "Navigation",
-        [
-            "Executive Overview",
-            "Sales & Marketing",
-            "Supply Chain",
-            "Sales Forecasting",
-            "Smart Insights"
-        ]
+    st.sidebar.markdown(
+        """
+        <div class="brand-header">
+            <div class="brand-icon">B</div>
+            <div class="brand-text">
+                <div class="brand-title">BookFlow</div>
+                <div class="brand-subtitle">Analytics Workspace</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.sidebar.divider()
-    st.sidebar.subheader("Dashboard Filters")
 
-    categories = sorted(df["Category"].dropna().unique())
+    if "current_page" not in st.session_state:
+        st.session_state.current_page = "Executive Overview"
+
+    st.sidebar.caption("WORKSPACE")
+
+    navigation_items = {
+        "Executive Overview": "▦  Executive Overview",
+        "Sales & Marketing": "♧  Sales & Marketing",
+        "Supply Chain": "▤  Supply Chain",
+        "Sales Forecasting": "↗  Sales Forecasting",
+        "Smart Insights": "✦  Smart Insights",
+        "Data Quality": "✓  Data Quality"
+    }
+
+    for page_name, label in navigation_items.items():
+        is_active = st.session_state.current_page == page_name
+
+        if st.sidebar.button(
+            label,
+            key=f"nav_{page_name}",
+            type="primary" if is_active else "secondary",
+            use_container_width=True
+        ):
+            st.session_state.current_page = page_name
+            st.rerun()
+
+    page = st.session_state.current_page
+
+
+    st.sidebar.divider()
+    st.sidebar.markdown("#### FILTERS")
+
+    categories = sorted(
+        df["Category"].dropna().unique().tolist()
+    )
+
+    cities = sorted(
+        df["City"].dropna().astype(str).unique().tolist()
+    )
+
+    min_date = df["InvoiceDate"].min().date()
+    max_date = df["InvoiceDate"].max().date()
+
+    if st.session_state.get("reset_filters", False):
+        st.session_state["selected_categories"] = []
+        st.session_state["selected_cities"] = []
+        st.session_state["start_date"] = min_date
+        st.session_state["end_date"] = max_date
+        st.session_state["reset_filters"] = False
 
     selected_categories = st.sidebar.multiselect(
         "Product Categories",
-        categories
+        options=categories,
+        placeholder="All Categories",
+        key="selected_categories"
+    )
+
+    selected_cities = st.sidebar.multiselect(
+        "Cities",
+        options=cities,
+        placeholder="All Cities",
+        key="selected_cities"
+    )
+
+    start_date = st.sidebar.date_input(
+        "Start Date",
+        value=min_date,
+        min_value=min_date,
+        max_value=max_date,
+        key="start_date"
+    )
+
+    end_date = st.sidebar.date_input(
+        "End Date",
+        value=max_date,
+        min_value=min_date,
+        max_value=max_date,
+        key="end_date"
+    )
+
+    def reset_dashboard_filters():
+        st.session_state["reset_filters"] = True
+
+    st.sidebar.button(
+        "Reset Filters",
+        on_click=reset_dashboard_filters,
+        use_container_width=True,
+        type="primary"
     )
 
     if selected_categories:
         df = df[df["Category"].isin(selected_categories)].copy()
 
+    if selected_cities:
+        df = df[df["City"].isin(selected_cities)].copy()
+
+    if start_date <= end_date:
+        df = df[
+            (df["InvoiceDate"].dt.date >= start_date)
+            & (df["InvoiceDate"].dt.date <= end_date)
+        ].copy()
+    else:
+        st.warning("Start Date cannot be later than End Date.")
+        st.stop()
+
+    st.sidebar.caption("OVERVIEW & ANALYTICS")
+    st.sidebar.metric(
+        "Transactions",
+        f"{len(df):,}"
+    )
+
+    st.sidebar.caption(
+        "2020 B2B transaction dataset"
+    )
+
     if df.empty:
         st.warning("No transactions match the selected filters.")
         st.stop()
 
-    st.title("BookFlow | B2B Sales Intelligence")
-    st.caption(
-        "ISL 467E | Management Engineering Applications with Python"
+    st.title("BookFlow")
+    st.markdown(
+        "**B2B Sales Intelligence & Decision Support Dashboard**"
     )
+    st.caption(
+        "Management Engineering Applications with Python "
+        
+    )
+    st.divider()
 
     if page == "Executive Overview":
         display_overview(df)
@@ -524,6 +1058,9 @@ def main():
 
     elif page == "Smart Insights":
         display_insights(df)
+
+    elif page == "Data Quality":
+        display_cleaning_report(str(DATA_FILE))
 
     display_data_quality(df)
 
